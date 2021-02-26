@@ -1,6 +1,7 @@
 """
 To prevent conflict with built-in modules, using "sira", the Greek word for "queue".
 """
+from asyncio.queues import QueueEmpty
 from typing import Dict, Union
 import asyncio
 
@@ -51,3 +52,20 @@ def task_done(chat_id: Union[str, int]) -> None:
             queues[chat_id].task_done()
         except ValueError:
             pass
+
+
+def clear(chat_id: Union[str, int]) -> None:
+    if isinstance(chat_id, int):
+        chat_id = str(chat_id)
+
+    if chat_id in queues:
+        if queues[chat_id].qsize() == 0:
+            raise QueueEmpty("The queue is empty.")
+        else:
+            for i in range(queues[chat_id].qsize()):
+                try:
+                    queues[chat_id].task_done()
+                except ValueError:
+                    pass
+    else:
+        raise QueueEmpty("The queue is empty.")

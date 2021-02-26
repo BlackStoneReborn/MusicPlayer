@@ -9,7 +9,7 @@ Neither this, or PyTgCalls are stable.
 - FFmpeg
 - NodeJS [nodesource.com](https://nodesource.com/)
 - Python 3.7+
-- [PyTgCalls](https://gihub.com/pytgcalls/pytgcalls)
+- [PyTgCalls](https://github.com/pytgcalls/pytgcalls)
 
 ## Deployment
 

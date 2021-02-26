@@ -41,7 +41,7 @@ async def resume(client: Client, message: Message):
 )
 @errors
 async def volume(client: Client, message: Message):
-    if len(message.command != 2):
+    if len(message.command) != 2:
         return
 
     try:

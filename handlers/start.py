@@ -3,12 +3,12 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 
 @Client.on_message(
-    filters.command("start", "/")
+    filters.command("start")
     & filters.group
     & ~ filters.edited
 )
-def start(client: Client, message: Message):
-    message.reply_text(
+async def start(client: Client, message: Message):
+    await message.reply_text(
         "Do you want to search for a video?",
         reply_markup=InlineKeyboardMarkup(
             [

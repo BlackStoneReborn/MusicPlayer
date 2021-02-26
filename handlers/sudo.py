@@ -30,32 +30,6 @@ async def resume(client: Client, message: Message):
 
 
 @Client.on_message(
-    filters.command(
-        [
-            "setvol", "set_vol", "vol", "setvolume", "set_volume", "volume"
-        ]
-    )
-    & filters.group
-    & ~ filters.edited
-    & sudoers
-)
-@errors
-async def volume(client: Client, message: Message):
-    if len(message.command) != 2:
-        return
-
-    try:
-        volume = int(message.command[1])
-    except:
-        return
-
-    if 0 <= volume <= 200:
-        tgcalls.pytgcalls.change_volume_call(message.chat.id, volume)
-    else:
-        return
-
-
-@Client.on_message(
     filters.command(["clear", "clearqueue", "clear_queue"])
     & filters.group
     & ~ filters.edited

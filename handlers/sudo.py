@@ -49,7 +49,7 @@ async def volume(client: Client, message: Message):
     except:
         return
 
-    if volume <= 0 and volume >= 200:
+    if 0 <= volume <= 200:
         tgcalls.pytgcalls.change_volume_call(message.chat.id, volume)
     else:
         return

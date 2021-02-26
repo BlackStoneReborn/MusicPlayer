@@ -8,12 +8,12 @@ from youtubesearchpython import VideosSearch
 
 
 @Client.on_inline_query()
-def search(client: Client, query: InlineQuery):
+async def search(client: Client, query: InlineQuery):
     answers = []
     search_query = query.query.lower().strip().rstrip()
 
     if search_query == "":
-        client.answer_inline_query(
+        await client.answer_inline_query(
             query.id,
             results=answers,
             switch_pm_text="Type a YouTube video name...",
@@ -41,12 +41,12 @@ def search(client: Client, query: InlineQuery):
             )
 
         try:
-            query.answer(
+            await query.answer(
                 results=answers,
                 cache_time=0
             )
         except errors.QueryIdInvalid:
-            query.answer(
+            await query.answer(
                 results=answers,
                 cache_time=0,
                 switch_pm_text="Error: Search timed out",

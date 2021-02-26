@@ -1,9 +1,10 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
-from tgcalls import pytgcalls
+import tgcalls
 from converter import convert
 from youtube import download
+import sira
 from helpers.wrappers import errors
 
 
@@ -43,24 +44,9 @@ async def play(client: Client, message_: Message):
 
     file_path = await convert(download(url))
 
-    if message_.chat.id in pytgcalls.get_active_voice_chats():
-        await message_.reply_text(
-            "There is a song being played at the moment, what do you want to do?",
-            reply_markup=InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            "Play now", callback_data=file_path
-                        )
-                    ],
-                    [
-                        InlineKeyboardButton(
-                            "Don't play, close this.", callback_data="close"
-                        )
-                    ]
-                ]
-            )
-        )
+    if message.chat.id in tgcalls.playing:
+        position = await sira.add(message.chat.id, file_path)
+        await message_.reply_text(f"Queued at position {position}.")
     else:
         await message_.reply_text("Playing...")
-        pytgcalls.join_group_call(message_.chat.id, file_path, 48000)
+        tgcalls.pytgcalls.join_group_call(message_.chat.id, file_path, 48000)

@@ -65,9 +65,7 @@ def clear(chat_id: Union[str, int]) -> None:
             for i in range(queues[chat_id].qsize()):
                 try:
                     queues[chat_id].get_nowait()
-                    queues[chat_id].task_done()
-                except ValueError:
-                    pass
+                    task_done(chat_id)
                 except QueueEmpty:
                     pass
     else:

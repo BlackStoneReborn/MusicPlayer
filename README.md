@@ -15,7 +15,7 @@ Neither this, or PyTgCalls are stable.
 
 1. Install Python requirements:
    ```bash
-   pip install requirements.txt
+   pip install -r requirements.txt
    ```
 2. Copy `example.env` to `.env` and fill it with your credentials.
 3. Run:
